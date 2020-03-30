@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:jaxws="http://cxf.apache.org/jaxws"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-4.3.xsd
+       http://cxf.apache.org/jaxws
+       http://cxf.apache.org/schemas/jaxws.xsd">
+
+    <context:component-scan base-package="com.aoher"/>
+
+    <jaxws:endpoint id="teamServiceWS" implementor="#teamService" address="/v/1/teamService">
+        <jaxws:handlers>
+            <bean id="customSOAPHandler" class="com.aoher.handler.CustomSOAPHandler"/>
+        </jaxws:handlers>
+        <jaxws:features>
+            <bean class="com.aoher.LoggingFeature"/>
+        </jaxws:features>
+    </jaxws:endpoint>
+
+    <jaxws:endpoint id="fileTransferServiceWS" implementor="#fileTransferService" address="/v/1/transferFileService"/>
+
+    <jaxws:endpoint id="fileTransferMTOMServiceWS" implementor="#fileTransferMTOMService" address="/v/1/transferFileMTOMService"/>
+</beans>
